@@ -1,4 +1,4 @@
-import 'package:expandable_widget/expandable.dart';
+import 'package:expandable_widget_plus/expandable.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -14,7 +14,6 @@ class ExpandableText extends StatefulWidget {
   ///Show and hide text completely
   ExpandableText.manual(this.text,
       {required this.expand,
-      required this.vsync,
       this.animationDuration = const Duration(milliseconds: 150),
       this.textStyle,
       this.strutStyle,
@@ -51,7 +50,6 @@ class ExpandableText extends StatefulWidget {
       this.alignment = Alignment.topCenter,
       Key? key})
       : lines = null,
-        vsync = null,
         expandMode = _ExpandMode.ShowHide,
         super(key: key);
 
@@ -74,8 +72,7 @@ class ExpandableText extends StatefulWidget {
       this.expand = false,
       this.alignment = Alignment.topCenter,
       Key? key})
-      : vsync = null,
-        expandMode = _ExpandMode.Lines,
+      : expandMode = _ExpandMode.Lines,
         super(key: key);
 
   /// Color of the default arrow widget.
@@ -105,9 +102,6 @@ class ExpandableText extends StatefulWidget {
 
   /// Control the animation position
   final Alignment alignment;
-
-  /// vsync provider for manual mode
-  final TickerProvider? vsync;
 
   /// Other text parameters, see[Text]
   final StrutStyle? strutStyle;
@@ -154,7 +148,6 @@ class _ExpandableTextState extends State<ExpandableText>
             return AnimatedSize(
                 duration: widget.animationDuration,
                 reverseDuration: widget.animationDuration,
-                vsync: this,
                 alignment: Alignment.topCenter,
                 child: widget.expandMode == _ExpandMode.Manual
                     ? _buildManual()

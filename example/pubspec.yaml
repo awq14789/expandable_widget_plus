@@ -21,7 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  expandable_widget:
+  expandable_widget_plus:
     path: "../"
 
 dev_dependencies:

@@ -1,4 +1,4 @@
-import 'package:expandable_widget/expandable.dart';
+import 'package:expandable_widget_plus/expandable.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -24,7 +24,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> {
   final _text =
       '''Flutter is Google’s UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.
   Paint your app to life in milliseconds with Stateful Hot Reload. Use a rich set of fully-customizable widgets to build native interfaces in minutes.
@@ -58,7 +58,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ),
             ExpandableWidget.manual(
                 expand: _showManual,
-                vsync: this,
                 child: Container(
                   color: Colors.blue,
                   height: 100,
@@ -72,12 +71,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ),
             ExpandableText.manual(
               _text,
-              vsync: this,
               expand: _showManual,
             ),
             TextButton(
-              style: TextButton.styleFrom(
-                  backgroundColor: Colors.grey[300], primary: Colors.black),
+              style: TextButton.styleFrom(backgroundColor: Colors.grey[300]),
               onPressed: () => setState(() => _showManual = !_showManual),
               child: Text("Toggle Manual"),
             ),

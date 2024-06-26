@@ -4,18 +4,14 @@
 ///@description Expandable widget
 ///
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:expandable_widget/res/expand_arrow.dart';
+import 'package:expandable_widget_plus/res/expand_arrow.dart';
 
 enum _ExpandMode { Manual, ShowHide, MaxHeight }
 
 typedef ArrowBuilder = Widget Function(bool expand);
 
 class ExpandableWidget extends StatefulWidget {
-  /// vsync provider for manual mode
-  final TickerProvider? vsync;
-
   ///In manual mode, it control the expand status
   ///In auto mode(ShowHide\MaxHeight), it decide Whether expand at the beginning or not, Default is false
   final bool expand;
@@ -51,7 +47,6 @@ class ExpandableWidget extends StatefulWidget {
   ///Show and hide child completely.
   const ExpandableWidget.manual(
       {required this.expand,
-      required this.vsync,
       required this.child,
       this.animationDuration = const Duration(milliseconds: 150),
       this.alignment = Alignment.topCenter,
@@ -77,8 +72,7 @@ class ExpandableWidget extends StatefulWidget {
     required this.child,
     this.expand = false,
     this.alignment = Alignment.topCenter,
-  })  : vsync = null,
-        maxHeight = 0,
+  })  : maxHeight = 0,
         mode = _ExpandMode.ShowHide,
         super(key: key);
 
@@ -97,8 +91,7 @@ class ExpandableWidget extends StatefulWidget {
     this.maxHeight = 100.0,
     this.expand = false,
     this.alignment = Alignment.topCenter,
-  })  : vsync = null,
-        mode = _ExpandMode.MaxHeight,
+  })  : mode = _ExpandMode.MaxHeight,
         super(key: key);
 
   @override
@@ -143,7 +136,6 @@ class _ExpandableWidgetState extends State<ExpandableWidget>
     return ClipRect(
       child: AnimatedSize(
         alignment: widget.alignment,
-        vsync: widget.vsync!,
         duration: widget.animationDuration,
         curve: Curves.easeInOut,
         child: AnimatedSwitcher(
@@ -196,7 +188,6 @@ class _ExpandableWidgetState extends State<ExpandableWidget>
       duration: widget.animationDuration,
       reverseDuration: widget.animationDuration,
       alignment: widget.alignment,
-      vsync: this,
       child: ConstrainedBox(
         constraints: BoxConstraints(
             maxHeight: !_isExpanded
